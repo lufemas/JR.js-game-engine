@@ -1,0 +1,16 @@
+{
+  "name": "jr-game-engine",
+  "version": "1.0.0",
+  "description": "a easy to use HTML5 3D game engine",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html"
+  },
+  "author": "lufemas",
+  "license": "ISC",
+  "dependencies": {
+    "babylonjs": "^4.1.0",
+    "parcel": "^1.12.4"
+  }
+}
