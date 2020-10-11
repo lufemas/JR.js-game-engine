@@ -1,41 +1,37 @@
-import {GameObject} from './engine/jr-core'
-import Babylon from 'babylonjs'
+import { Vector3 } from 'babylonjs';
+import * as THREE from 'three';
 
-function fastStart(){
+export default function JR(){
 
-    const canvas = document.getElementById("renderCanvas"); // Get the canvas element
-    const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
+        this.level = {}
 
-    const pawns = []
+        this.basicCamera = () => new THREE.PerspectiveCamera( 120, window.innerWidth / window.innerHeight, 1, 1000 );
+        
+        this.basicScene = () => new THREE.Scene();
 
-    /******* Add the create scene function ******/
-    const createScene = function () {
+        this.renderer = new THREE.WebGLRenderer( { antialias: true } );
+        this.renderer.setPixelRatio( window.devicePixelRatio );
+        this.renderer.setSize( window.innerWidth - 50, window.innerHeight - 100 );
+        document.body.appendChild(  this.renderer.domElement );
 
-        // Create the scene space
-        const scene = new BABYLON.Scene(engine);
+        this.addBox = (scene) => {
 
-        // Add a camera to the scene and attach it to the canvas
-        const camera = new BABYLON.ArcRotateCamera("Camera", Math.PI / 2, Math.PI / 2, 2, new BABYLON.Vector3(0,0,20), scene);
-        camera.attachControl(canvas, true);
+            const geometry = new THREE.BoxBufferGeometry( 200, 200, 200 );
+            const box = new THREE.Mesh( geometry );
+            scene.add( box );
 
-        // Add lights to the scene
-        const light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(1, 1, 0), scene);
-        const light2 = new BABYLON.PointLight("light2", new BABYLON.Vector3(0, 1, -1), scene);
+            return box;
 
-        return scene;
-    };
-    /******* End of the create scene function ******/
+        }
 
-    const scene = createScene(); //Call the createScene function
+        this.animate = () => {
 
-    // Register a render loop to repeatedly render the scene
+            requestAnimationFrame( this.animate );
+    
+            this.renderer.render( this.level.scene, this.level.camera );
+    
+        }
+    
 
-    // Watch for browser/canvas resize events
-    window.addEventListener("resize", function () {
-            engine.resize();
-    });
-
-    return {canvas, engine, scene}
 }
 
-export default {GameObject, fastStart}

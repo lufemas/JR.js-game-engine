@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "babylonjs": "^4.1.0",
-    "parcel": "^1.12.4"
+    "parcel": "^1.12.4",
+    "three": "^0.121.1"
   }
 }
